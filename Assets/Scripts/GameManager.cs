@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     {
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
+        Clean();
 #else
     Application.Quit();
 #endif
@@ -96,7 +97,7 @@ public class GameManager : MonoBehaviour
     {
         string path = Application.persistentDataPath + "/savefile.json";
 
-        if(File.Exists(path))
+        if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             User user = JsonUtility.FromJson<User>(json);
@@ -105,4 +106,10 @@ public class GameManager : MonoBehaviour
             userScore = user.score;
         }
     }
+
+    public void Clean()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        File.Delete(path);
+    }    
 }
